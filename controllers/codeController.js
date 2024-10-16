@@ -22,7 +22,7 @@ const submitCode = async (req, res) => {
     java: 'java',
   };
 
-  // Check if the language supported or not
+  // Check the language supported or not
   const jdoodleLanguage = languageMapping[language.toLowerCase()];
   if (!jdoodleLanguage) {
     return res.status(400).json({ message: 'Unsupported language' });
@@ -31,16 +31,14 @@ const submitCode = async (req, res) => {
   const payload = {
     script: code,
     language: jdoodleLanguage,
-    versionIndex: '0', // Set to default version
+    versionIndex: '0', 
     clientId: CLIENT_ID,
     clientSecret: CLIENT_SECRET,
   };
 
   try {
-    // Execute code using JDoodle API
     const response = await axios.post(JDoodle_API_URL, payload);
     
-    // Save the result to the database
     codeSubmission.result = response.data.output;
     await codeSubmission.save();
 

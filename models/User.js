@@ -1,4 +1,3 @@
-// /backend/models/User.js
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
@@ -12,17 +11,17 @@ const userSchema = mongoose.Schema({
     required: true,
   },
   email: {
-    type: String, 
+    type: String,
     required: true,
     unique: true,
   },
   role: {
     type: String,
-    default: 'user', 
+    default: 'user',
   },
 }, {
   timestamps: true,
 });
 
 const User = mongoose.model('user_details', userSchema);
-module.exports = User; 
+module.exports = User;

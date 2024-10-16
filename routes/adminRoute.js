@@ -1,11 +1,22 @@
-// /backend/routes/adminRoutes.js
 const express = require('express');
-const { getAllUsers, getAllSubmissions } = require('../controllers/adminController');
-const { protect, admin } = require('../middleware/authMiddleware');
+const {
+    addProblem,
+    getProblems,
+    updateProblem,
+    deleteProblem,
+    getUserSubmissions
+    } = require('../controllers/adminController');
+const { protect,isAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
+// router.use(protect);
+// router.use(isAdmin);
 
-router.get('/users', protect, admin, getAllUsers);
-router.get('/submissions', protect, admin, getAllSubmissions);
+router.post('/problems',addProblem);
+router.get('/problems', getProblems);
+router.put('/problems/:id', isAdmin, updateProblem);
+router.delete('/problems/:id', isAdmin, deleteProblem);
+router.get('/submissions', isAdmin, getUserSubmissions);
+
 
 module.exports = router;

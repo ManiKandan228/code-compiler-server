@@ -1,22 +1,26 @@
+require('dotenv').config();
 const express = require('express');
-const dotenv = require('dotenv');
+const session = require('express-session');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoute');
-const codeRoutes = require('./routes/codeRoute');
 const adminRoutes = require('./routes/adminRoute');
 
 const cors = require('cors');
-dotenv.config();
 connectDB();
 
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'defaultsecret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }, 
+}));
+
 app.use('/api/users', userRoutes);
-app.use('/api/code', codeRoutes);
 app.use('/api/admin', adminRoutes);
 
 const PORT = process.env.PORT || 5000;
