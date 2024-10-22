@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const exampleSchema = new mongoose.Schema({
-  input: { type: [mongoose.Schema.Types.Mixed], required: true },
+  input: { 
+    type: [mongoose.Schema.Types.Mixed], required: true },
   output: { type: [mongoose.Schema.Types.Mixed], required: true },
 });
 
