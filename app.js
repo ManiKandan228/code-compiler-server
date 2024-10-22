@@ -17,7 +17,10 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'defaultsecret',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }, 
+  cookie: {
+    secure: process.env.NODE_ENV === 'production', 
+    httpOnly: true, 
+  },
 }));
 
 app.use('/api/users', userRoutes);
